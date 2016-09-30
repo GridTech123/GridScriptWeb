@@ -28,3 +28,10 @@ use: `embed <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Agridtec
 
 note that all embed codes need to be one line
 
+#log
+use: `log your text` <br>
+log will put things in the console
+
+#comments
+use `# your comment`
+
