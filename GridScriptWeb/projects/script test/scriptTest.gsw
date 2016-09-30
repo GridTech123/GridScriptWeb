@@ -1,0 +1,7 @@
+title script test
+subtitle open the console in developer tools!
+
+#these say things to the console
+#go to the console by clicking ctrl+shift+i (in chrome)
+log hi
+log I dont think we have met

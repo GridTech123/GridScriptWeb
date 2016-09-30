@@ -1,6 +1,7 @@
 import pickle
 import os
 import sys
+import time
 
 pickle_in = open('file_path.gsrf', 'r')
 path = pickle.load(pickle_in)
@@ -69,15 +70,58 @@ while True:
         f.write(line_reading[5:lineLength])          
 
     if line_reading[0:4] == 'link':
-        f.write('\n') 
-        f.write('<a href =' +str(line_reading[5:line_reading.index(',')]) +'>'+str(line_reading[line_reading.index(',') + 1:lineLength]) +'</a>')
+        try:
+            f.write('\n') 
+            f.write('<a href =' +str(line_reading[5:line_reading.index(',')]) +'>'+str(line_reading[line_reading.index(',') + 1:lineLength]) +'</a>')
+        except:
+            print 'ERROR: use, "link sorce, text"'
 
     if line_reading[0:5] == 'video':
-        f.write('\n') 
-        f.write('<video autoplay src = "' +str(line_reading[6:line_reading.index(',')]) +'">' +str(line_reading[line_reading.index(',') + 1:lineLength]) +'</video>')
+        try:
+            f.write('\n') 
+            f.write('<video autoplay src = "' +str(line_reading[6:line_reading.index(',')]) +'">' +str(line_reading[line_reading.index(',') + 1:lineLength]) +'</video>')
+        except:
+            print 'ERROR: use, "video sorce, Error if it dosnt load"'
 
     if line_reading[0:5] == 'audio':
+        try:
+            f.write('\n') 
+            f.write('<audio autoplay src = "' +str(line_reading[6:lineLength]) +'">''</audio>')
+        except:
+            print 'ERROR: use, "audio sorce"'  
+
+    #if line_reading[0:6] == 'script':
+    #    scriptLines = line_reading[7:lineLength]
+    #    scriptLine = 0
+    #    f.write('\n') 
+    #    f.write('<script>') 
+    #    while scriptLine < scriptLines:
+    #        line = line + 1
+    #        try:
+    #            line_reading = lines[line]
+    #            lineLength = len(line_reading)
+    #        except:
+    #            f.write('\n</body>')
+    #            f.write('\n</html>') 
+    #            os.startfile(path+str('.html'))   
+    #            sys.exit()
+    #        if line_reading[0:lineLength] == 'log':            
+    #            try:
+    #                f.write('\n') 
+    #                f.write('console.log '+str(line_reading[4:lineLength]))
+    #            except:
+    #                print 'ERROR: use: "log text"'  
+    #        scriptLine = scriptLine + 1
+    #    else:
+    #        f.write('\n') 
+    #        f.write('</script>') 
+
+    if line_reading[0:3] == 'log':
         f.write('\n') 
-        f.write('<audio autoplay src = "' +str(line_reading[6:lineLength]) +'">''</audio>')
+        f.write('<script>console.log("' +str(line_reading[4:lineLength - 1]) + '")</script>')
+
+    if line_reading[0] == '#':
+        f.write('\n') 
+        f.write('<!--' +str(line_reading[1:lineLength -1]) +'-->')     
 
     line = line + 1
