@@ -5,3 +5,10 @@ subtitle open the console in developer tools!
 #go to the console by clicking ctrl+shift+i (in chrome)
 log hi
 log I dont think we have met
+
+alert This is an alert!
+
+print <br>
+
+image logo.png
+print this is a grid script web tutorial, look at the code in the IDE
