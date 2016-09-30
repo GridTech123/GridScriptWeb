@@ -33,5 +33,7 @@ use: `log your text` <br>
 log will put things in the console
 
 #comments
-use `# your comment`
+use: `# your comment`
 
+#alert
+use: `alert your text`
