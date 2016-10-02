@@ -102,4 +102,13 @@ while True:
         f.write('\n') 
         f.write('<script>alert("' +str(line_reading[6:lineLength - 1]) + '")</script>')        
 
+    if line_reading[0:4] == 'html':
+        f.write('\n') 
+        f.write(line_reading[5:lineLength])                
+
+    if line_reading[0:8] == 'progress':
+        f.write('\n') 
+        f.write('<meter value="'+str(line_reading[9:line_reading.index(',')]) +str('" max="') +str(line_reading[line_reading.index(',') + 2:lineLength - 1])+str('"></meter>'))
+
+
     line = line + 1
