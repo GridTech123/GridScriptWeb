@@ -37,3 +37,12 @@ use: `# your comment`
 
 #alert
 use: `alert your text`
+
+#html
+the html command lets you add plain html so you are not limited to grid script commands<br>
+use: `html <h1>this is a title</h1>`
+
+#progress
+Progress lets you add a progress bar <br>
+use: `progress 50, 100`<br>
+`NOTE: that would show a half full progress bar because it is 50% of 100%`
