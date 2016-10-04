@@ -4,6 +4,7 @@ import os
 import pickle
 import pyError
 import win32com.shell.shell as shell
+import tkFont
 ASADMIN = 'asadmin'
 
 if sys.argv[-1] != ASADMIN:
@@ -12,27 +13,7 @@ if sys.argv[-1] != ASADMIN:
     shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params)
     sys.exit(0)
 
-def settings_open():
-    os.chdir('settings')
-    os.startfile('settings.exe')
-    os.chdir('..')
-
-def newFile():
-    global filename
-    filename = "Untitled"
-    text.delete(0.0, END)
-
-def saveFile():
-    global filename
-    try:
-        t = text.get(0.0, END)
-        f = open(filename, 'w')
-        f.write(t)
-        f.close()
-    except:
-        saveAs()
-
-def saveAs():   
+def saveAs():
     os.chdir('projects')
     f = asksaveasfile(mode = 'w', defaultextension = '.gsw')
     t = text.get(0.0, END)
@@ -41,6 +22,12 @@ def saveAs():
     except:
         pyError.newError('Grid Script Error', 'There was an error saving your file', 'We are not sure what happend',40,20)
     os.chdir('..')
+
+def newFile():
+    global filename
+    filename = "Untitled"
+    text.delete(0.0, END)
+    saveAs()
 
 def openFile():
     os.chdir('projects')
@@ -72,7 +59,6 @@ def run():
     pickle_out.close()    
     os.startfile('Compiler.exe')
     os.chdir('..')
-    
 
 app = Tk()
 app.title('Grid Script Web IDE')
@@ -81,18 +67,18 @@ app.geometry('1000x1000')
 text = Text(app, width = 1000, height = 1000)
 text.pack()
 
+def bold():
+    self.text.tag_configure("bold", fg = 'red')
+
+
 menubar = Menu(app)
 filemenu = Menu(menubar)
 filemenu.add_command(label = 'New', command = newFile)
 filemenu.add_command(label = 'Open', command = openFile)
-filemenu.add_command(label = 'Save', command = saveFile)
-filemenu.add_command(label = 'Save As', command = saveAs)
+filemenu.add_command(label = 'Save', command = saveAs)
 filemenu.add_separator()
 filemenu.add_command(label = 'Quit', command = app.quit)
 menubar.add_cascade(label = 'File', menu = filemenu)
-#settings = Menu(menubar)
-#settings.add_command(label = 'Settings', command = settings_open)
-#menubar.add_cascade(label = 'Settings', menu = settings)
 Run = Menu(menubar)
 Run.add_command(label = 'Run Program', command = run)
 menubar.add_cascade(label = 'Run', menu = Run)
