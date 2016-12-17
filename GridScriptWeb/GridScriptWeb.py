@@ -5,13 +5,13 @@ import pickle
 import pyError
 import win32com.shell.shell as shell
 import tkFont
-ASADMIN = 'asadmin'
+#ASADMIN = 'asadmin'
 
-if sys.argv[-1] != ASADMIN:
-    script = os.path.abspath(sys.argv[0])
-    params = ' '.join([script] + sys.argv[1:] + [ASADMIN])
-    shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params)
-    sys.exit(0)
+#if sys.argv[-1] != ASADMIN:
+#    script = os.path.abspath(sys.argv[0])
+#    params = ' '.join([script] + sys.argv[1:] + [ASADMIN])
+#    shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params)
+#    sys.exit(0)
 
 def saveAs():
     os.chdir('projects')
@@ -60,6 +60,20 @@ def run():
     os.startfile('Compiler.exe')
     os.chdir('..')
 
+def runTemp():
+    os.chdir('Compiler')
+    f = open('temp.gsw', 'w')
+    t = text.get(0.0, END)
+    try:
+        f.write(t.rstrip())
+    except:
+        print('error')
+    pickle_out = open('file_path.gsrf', 'w')
+    pickle.dump('temp.gsw', pickle_out)
+    pickle_out.close()    
+    os.startfile('Compiler.exe')
+    os.chdir('..')
+
 app = Tk()
 app.title('Grid Script Web IDE')
 app.geometry('1000x1000')
@@ -80,7 +94,8 @@ filemenu.add_separator()
 filemenu.add_command(label = 'Quit', command = app.quit)
 menubar.add_cascade(label = 'File', menu = filemenu)
 Run = Menu(menubar)
-Run.add_command(label = 'Run Program', command = run)
+Run.add_command(label = 'Run Program as exec', command = run)
+Run.add_command(label = 'Run Program as temp', command = runTemp)
 menubar.add_cascade(label = 'Run', menu = Run)
 
 app.config(menu = menubar)
